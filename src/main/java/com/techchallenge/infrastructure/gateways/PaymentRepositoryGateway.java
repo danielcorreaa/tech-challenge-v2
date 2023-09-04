@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.techchallenge.application.gateways.PaymentGateway;
 import com.techchallenge.domain.entity.Payment;
-import com.techchallenge.domain.errors.BusinessException;
 import com.techchallenge.domain.errors.NotFoundException;
 import com.techchallenge.infrastructure.persistence.entity.PaymentEntity;
 import com.techchallenge.infrastructure.persistence.mapper.PaymentEntityMapper;
@@ -43,6 +42,11 @@ public class PaymentRepositoryGateway implements PaymentGateway {
 		PaymentEntity paymentEntity = mapper.toPaymentEntity(payment);
 		paymentEntity = paymentRepository.save(paymentEntity);
 		return mapper.toPayment(paymentEntity);
+	}
+
+	@Override
+	public int updateStatusPayment(Long externalReferencelong) {
+		return paymentRepository.updateStatusPayment(externalReferencelong);
 	}
 
 }

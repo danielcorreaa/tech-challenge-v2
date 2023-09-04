@@ -40,10 +40,9 @@ public class PaymentUseCaseInteractor implements PaymentUseCase {
 		if(checkPayment.IsAprooved()) {
 			Order order = orderGateway.findbyId(checkPayment.getExternalReferencelong())
 						.orElseThrow(() -> new NotFoundException("Order not found"));
-			Payment payment = paymentGateway.findByOrder(checkPayment.getExternalReferencelong());
-			payment.aprooved();
-			checkPayment = paymentGateway.update(payment);	
-			if(checkPayment.IsAprooved()) {
+			
+			int result =  paymentGateway.updateStatusPayment(checkPayment.getExternalReferencelong());	
+			if(result != 0) {
 				order.sendToPreparation();
 				orderGateway.insert(order);
 			}

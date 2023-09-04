@@ -1,5 +1,9 @@
 package com.techchallenge.infrastructure.api.request;
 
-public record PaymentRequest(String resource) {
+import jakarta.validation.constraints.NotBlank;
+
+public record PaymentRequest(
+		@NotBlank(message = "OrderId is required!")
+		Long orderId) {
 
 }

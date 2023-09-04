@@ -18,6 +18,7 @@ import com.techchallenge.application.usecases.PaymentUseCase;
 import com.techchallenge.config.infra.Result;
 import com.techchallenge.domain.entity.Payment;
 import com.techchallenge.infrastructure.api.mapper.PaymentMapper;
+import com.techchallenge.infrastructure.api.request.PaymentWebhookRequest;
 import com.techchallenge.infrastructure.api.request.PaymentRequest;
 import com.techchallenge.infrastructure.api.request.PaymentResponse;
 
@@ -34,12 +35,10 @@ public class PaymentApi {
 		this.mapper = mapper;
 	}
 
-	@GetMapping("/pay/{id}")
-	public ResponseEntity<InputStreamResource> checkout(@PathVariable Long id, UriComponentsBuilder uri ) throws IOException {
-		
+	@PostMapping("/pay")
+	public ResponseEntity<InputStreamResource> checkout(@RequestBody PaymentRequest request, UriComponentsBuilder uri ) throws IOException {		
 		UriComponents uriComponents = uri.path("/api/v1/payment/webhook").build();
-		System.out.println(uriComponents.toUriString());
-		Payment payment = paymentUseCase.validPayment(id, uriComponents.toUriString());
+		Payment payment = paymentUseCase.validPayment(request.orderId(), uriComponents.toUriString());
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(new InputStreamResource(payment.getQrCode()));
 	}
 
@@ -51,7 +50,7 @@ public class PaymentApi {
 	}
 	
 	@PostMapping("/webhook")
-	public ResponseEntity<Result<PaymentResponse>> webhook(@RequestBody PaymentRequest request) throws IOException {
+	public ResponseEntity<Result<PaymentResponse>> webhook(@RequestBody PaymentWebhookRequest request) throws IOException {
 		Payment payment = paymentUseCase.webhook(request.resource());
 		return ResponseEntity.ok(Result.ok(mapper.toPaymentResponse(payment)));
 

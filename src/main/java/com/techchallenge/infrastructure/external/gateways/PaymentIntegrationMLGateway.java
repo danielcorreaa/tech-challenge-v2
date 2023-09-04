@@ -19,7 +19,7 @@ import com.techchallenge.infrastructure.external.mapper.OrdersMLMapper;
 import com.techchallenge.infrastructure.external.mapper.PaymentExternalMapper;
 
 @Component
-public class PaymentGenerateQrCodeGateway implements PaymentExternalGateway {
+public class PaymentIntegrationMLGateway implements PaymentExternalGateway {
 
 	private MercadoLivreOrders mercadoLivreOrders;
 	private MercadoLivrePayment mercadoLivrePayment;
@@ -29,7 +29,7 @@ public class PaymentGenerateQrCodeGateway implements PaymentExternalGateway {
 	@Value("${api.mercadolivr.token}")
 	private String token;
 
-	public PaymentGenerateQrCodeGateway(MercadoLivreOrders mercadoLivreOrders, MercadoLivrePayment mercadoLivrePayment,
+	public PaymentIntegrationMLGateway(MercadoLivreOrders mercadoLivreOrders, MercadoLivrePayment mercadoLivrePayment,
 			OrdersMLMapper ordersMLMapper, PaymentExternalMapper paymentMapper) {
 		super();
 		this.mercadoLivreOrders = mercadoLivreOrders;

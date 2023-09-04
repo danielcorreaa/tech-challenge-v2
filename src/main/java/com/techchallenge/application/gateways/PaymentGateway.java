@@ -8,5 +8,6 @@ public interface PaymentGateway {
 	Payment update(Payment payment);
 	
 	Payment findByOrder(Long id);
+	int updateStatusPayment(Long externalReferencelong);
 
 }
