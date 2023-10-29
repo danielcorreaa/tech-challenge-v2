@@ -17,11 +17,14 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    steps:
+    steps:    
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0        
-    - run: mvn test      
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        fetch-depth: 0
+    - run: mvn test
     - name: Generate JaCoCo Badge
       id: jacoco
       uses: cicirello/jacoco-badge-generator@v2.0.1
