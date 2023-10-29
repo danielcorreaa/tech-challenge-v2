@@ -21,8 +21,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
-    - name: Run Test
+        distribution: 'temurin'   
     - run: mvn test
     - name: Generate JaCoCo Badge
       id: jacoco
