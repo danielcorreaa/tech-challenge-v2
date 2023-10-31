@@ -17,6 +17,17 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		
+		<sonar.organization>tech-pos</sonar.organization>
+  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>  
+  				
+		<jacoco.version>0.8.7</jacoco.version>
+	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+	    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>	    
+	    <sonar.coverage.jacoco.xmlReportPaths>
+        	../tech-challenge-v2/target/jacoco-report/jacoco.xml
+   		</sonar.coverage.jacoco.xmlReportPaths>
+	    <sonar.language>java</sonar.language>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -71,6 +82,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.jacoco</groupId> 
+		    <artifactId>jacoco-maven-plugin</artifactId>
+		    <version>${jacoco.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -78,6 +94,26 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>${jacoco.version}</version>
+			    <executions>
+			        <execution>
+			            <id>jacoco-initialize</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <id>jacoco-site</id>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>report</goal>
+			            </goals>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>
