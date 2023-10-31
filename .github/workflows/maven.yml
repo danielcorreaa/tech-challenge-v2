@@ -30,7 +30,7 @@ jobs:
   code-analisys:
     runs-on: ubuntu-latest
     needs: unit-test    
-   steps:
+    steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -58,7 +58,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=danielcorreaa_tech-challenge-v2
   build:
     runs-on: ubuntu-latest
-    needs: code-analisys    
+    needs: code-analisys  
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
