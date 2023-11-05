@@ -42,6 +42,7 @@ jobs:
   EKS:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v3      
       - name: configurando credenciais da AWS
@@ -57,9 +58,9 @@ jobs:
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.3
         
-      - run: terraform -tech-challenge-infra-terraform-kubernetes/env/develop init
+      - run: terraform chdir=tech-challenge-infra-terraform-kubernetes/env/develop init
 
-      - run: terraform -tech-challenge-infra-terraform-kubernetes/env/develop apply -auto-approve  
+      - run: terraform chdir=tech-challenge-infra-terraform-kubernetes/env/develop apply -auto-approve  
 
       - name: Kubectl tool installer
         uses: Azure/setup-kubectl@v3
