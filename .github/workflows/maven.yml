@@ -42,6 +42,7 @@ jobs:
   EKS:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v3      
       - name: configurando credenciais da AWS
