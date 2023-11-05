@@ -54,13 +54,13 @@ jobs:
       - run: kubectl delete secret mysql-user --ignore-not-found
       - run: kubectl create secret generic mysql-user --from-literal=.DB_USERNAME=${{secrets.MYSQL_USER}}
       
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-configmap.yaml.yaml 
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-pv.yaml.yaml 
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-deployment-service.yaml 
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-deployment.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-configmap.yaml.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-pv.yaml.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-deployment-service.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/mysql/mysql-deployment.yaml 
 
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/java/app-tech-challenge-service.yaml 
-      - run: kubectl apply -f terraform -tech-challenge-infra-terraform-kubernetes/kubernates/java/app-tech-challenge.yaml
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/java/app-tech-challenge-service.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernates/java/app-tech-challenge.yaml
 
     
 
