@@ -32,7 +32,7 @@ jobs:
       
       - run: aws sts get-caller-identity
     
-      - run: aws eks update-kubeconfig --region us-west-2 --name dev
+      - run: aws eks update-kubeconfig --region us-west-1 --name dev
     
       - run: kubectl get svc
 
