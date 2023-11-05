@@ -29,7 +29,9 @@ jobs:
       
  
   build:
+
     runs-on: ubuntu-latest  
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -39,9 +41,11 @@ jobs:
           distribution: 'temurin'          
           cache: maven
       - run: mvn clean install --file pom.xml 
+
       
   Deploy_EKS:     
      uses: ./.github/workflows/terraform.yml
      secrets: inherit
     
+
     
