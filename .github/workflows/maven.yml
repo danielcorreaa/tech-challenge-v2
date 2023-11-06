@@ -72,7 +72,7 @@ jobs:
       - run: mvn clean install --file pom.xml 
 
   docker-pull-image:
-    needs: build
+   
     runs-on: ubuntu-latest
     steps: 
      - uses: actions/checkout@v4
