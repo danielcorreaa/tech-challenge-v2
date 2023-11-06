@@ -19,9 +19,13 @@ import com.techchallenge.config.infra.Result;
 import com.techchallenge.domain.entity.Payment;
 import com.techchallenge.infrastructure.api.mapper.PaymentMapper;
 import com.techchallenge.infrastructure.api.request.PaymentWebhookRequest;
+
+import lombok.extern.log4j.Log4j2;
+
 import com.techchallenge.infrastructure.api.request.PaymentRequest;
 import com.techchallenge.infrastructure.api.request.PaymentResponse;
 
+@Log4j2
 @RestController
 @RequestMapping("api/v1/payment")
 public class PaymentApi {
@@ -51,6 +55,7 @@ public class PaymentApi {
 	
 	@PostMapping("/webhook")
 	public ResponseEntity<Result<PaymentResponse>> webhook(@RequestBody PaymentWebhookRequest request) throws IOException {
+		log.info(request);
 		Payment payment = paymentUseCase.webhook(request.resource());
 		return ResponseEntity.ok(Result.ok(mapper.toPaymentResponse(payment)));
 
