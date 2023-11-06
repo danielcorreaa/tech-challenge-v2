@@ -82,7 +82,7 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     - name: Build project
-      run: mvn clean install -DskipTests
+      run: mvn clean install -DskipTests --file pom.xml
       
     - uses: actions/checkout@v3
     - name: Docker Setup Buildx  
