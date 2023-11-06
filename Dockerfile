@@ -3,7 +3,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copy the jar file into our app
-COPY ./target/target/tech-challenge-*.jar /app/tech-challenge.jar
+COPY ./target/tech-challenge-*.jar /app/tech-challenge.jar
 
 # Exposing port 8080
 EXPOSE 8080
