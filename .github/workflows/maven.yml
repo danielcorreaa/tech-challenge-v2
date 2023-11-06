@@ -71,38 +71,44 @@ jobs:
           cache: maven
       - run: mvn clean install --file pom.xml 
 
-  Docker-Pull_image:
+  docker-pull-image:
     needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Docker Setup Buildx  
       uses: docker/setup-buildx-action@v3.0.0
-    - name: Docker Login
-      # You may pin to the exact commit or the version.
-      # uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
+    - name: Docker Login    
       uses: docker/login-action@v3.0.0
       with:
         # Username used to log against the Docker registry
         username: daniel36
         # Password or personal access token used to log against the Docker registry
         password: ${{ secrets.PASSWORD_DOCKER_HUB }}
-     
+    - name: Build and push Docker images     
+      uses: docker/build-push-action@v5.0.0
+      with:
+        context: .
+        # Path to the Dockerfile
+        file:  ./Dockerfile        
+        push: true       
+        tags: daniel36/tech-challenge:${{github.run_number}}
+        
 
   Deploy_EKS-Dev:   
-     needs: build
+     needs: docker-pull-image
      if: github.ref == 'refs/heads/release'  
      uses: ./.github/workflows/terraform-dev.yml    
      secrets: inherit
   
   Deploy_EKS-Release:  
-     needs: build 
+     needs: docker-pull-image 
      if: github.ref == 'refs/heads/release'  
      uses: ./.github/workflows/terraform-qa.yml    
      secrets: inherit
 
   Deploy_EKS-Prod: 
-     needs: build  
+     needs: docker-pull-image  
      if: github.ref == 'refs/heads/main'  
      uses: ./.github/workflows/terraform-prd.yml    
      secrets: inherit
