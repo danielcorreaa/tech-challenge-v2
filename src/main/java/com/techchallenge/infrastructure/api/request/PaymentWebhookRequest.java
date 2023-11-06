@@ -1,5 +1,7 @@
 package com.techchallenge.infrastructure.api.request;
 
-public record PaymentWebhookRequest(String resource) {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public record PaymentWebhookRequest(String resource, @JsonIgnore String topic, @JsonIgnore String action) {
 
 }
