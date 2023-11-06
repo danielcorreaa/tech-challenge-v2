@@ -69,7 +69,7 @@ jobs:
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge-service.yaml      
       
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge.yaml
-      - run: kubectl set image deployment/staging app=daniel36/techchallenge:${{github.run_number}}
+      - run: kubectl set image deployment/app-tech-challenge app=daniel36/techchallenge:${{github.run_number}}
       - run: kubectl get svc -n staging
 
       
