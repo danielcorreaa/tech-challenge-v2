@@ -60,7 +60,7 @@ jobs:
       - run: kubectl create secret generic mysql-user --from-literal=DB_USERNAME=${{secrets.MYSQL_USER}}
     
 
-      # - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-configmap.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-configmap.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-pv.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment-service.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment.yaml
