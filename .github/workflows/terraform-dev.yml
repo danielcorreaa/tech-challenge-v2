@@ -68,4 +68,6 @@ jobs:
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge-service.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge.yaml
 
+      - run: terraform -chdir=tech-challenge-infra-terraform-kubernetes/env/develop destroy
+
    
