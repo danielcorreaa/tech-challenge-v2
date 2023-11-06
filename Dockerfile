@@ -1,14 +1,17 @@
-FROM eclipse-temurin:17-jdk-alpine 
-# Setting up work directory
+FROM eclipse-temurin:17-jdk-jammy as base
 WORKDIR /app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:resolve
+COPY src ./src
 
-# Copy the jar file into our app
-COPY ./target/tech-challenge-*.jar /app/tech-challenge.jar
+FROM base as development
 
-# Exposing port 8080
+FROM base as build
+RUN ./mvnw package
+
+FROM eclipse-temurin:17-jre-jammy as production
 EXPOSE 8080
-
-# Starting the application
-CMD ["java", "-jar", "spring-0.0.1-SNAPSHOT.jar"]
-
+COPY --from=build /app/target/tech-challenge-*.jar /tech-challenge.jar
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/tech-challenge.jar"]
 
