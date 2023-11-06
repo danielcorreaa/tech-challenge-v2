@@ -86,29 +86,27 @@ jobs:
      - name: Login Docker Hub
        run: docker login -u daniel36 -p ${{ secrets.PASSWORD_DOCKER_HUB }}
      - name: Build docker image
-       run: docker build -t daniel36/tech-challenge:${{github.run_number}} .
+       run: docker build -t daniel36/techchallenge:${{github.run_number}} .
      - name: Push image docker
-       run:  daniel36/tech-challenge:${{github.run_number}}
-         
-     - name: Build project
-       run: mvn wrapper:wrapper  --file pom.xml      
+       run: docker push daniel36/techchallenge:${{github.run_number}}
+     
       
 
   Deploy_EKS-Dev:   
      needs: docker-pull-image 
-     if: github.ref == 'refs/heads/develop'  
+     if: github.ref == 'refs/heads/develo'  
      uses: ./.github/workflows/terraform-dev.yml    
      secrets: inherit
   
   Deploy_EKS-Release:  
      needs: docker-pull-image 
-     if: github.ref == 'refs/heads/release'  
+     if: github.ref == 'refs/heads/releas'  
      uses: ./.github/workflows/terraform-qa.yml    
      secrets: inherit
 
   Deploy_EKS-Prod: 
      needs: docker-pull-image  
-     if: github.ref == 'refs/heads/main'  
+     if: github.ref == 'refs/heads/mai'  
      uses: ./.github/workflows/terraform-prd.yml    
      secrets: inherit
     
