@@ -66,8 +66,9 @@ jobs:
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment.yaml 
 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge-service.yaml 
+      
+      - run: kubectl set image deployment.v1.apps/app-tech-challenge-deployment app-tech-challenge=daniel36/techchallenge:${{github.run_number}}
+  
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge.yaml
 
-      - run: terraform -chdir=tech-challenge-infra-terraform-kubernetes/env/develop destroy -auto-approve  
-
-   
+      
