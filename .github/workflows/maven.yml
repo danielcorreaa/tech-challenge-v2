@@ -96,8 +96,8 @@ jobs:
         
 
   Deploy_EKS-Dev:   
-     needs: docker-pull-image
-     if: github.ref == 'refs/heads/release'  
+     
+     if: github.ref == 'refs/heads/develop'  
      uses: ./.github/workflows/terraform-dev.yml    
      secrets: inherit
   
