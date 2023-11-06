@@ -72,7 +72,7 @@ jobs:
       - run: mvn clean install --file pom.xml 
 
   docker-pull-image:
-  
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -96,7 +96,7 @@ jobs:
         
 
   Deploy_EKS-Dev:   
-     
+     needs: docker-pull-image 
      if: github.ref == 'refs/heads/develop'  
      uses: ./.github/workflows/terraform-dev.yml    
      secrets: inherit
