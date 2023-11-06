@@ -81,29 +81,18 @@ jobs:
        with:
          distribution: 'temurin'
          java-version: '17'
+     - name: Build project
+       run: mvn clean install -DskipTests
+     - name: Login Docker Hub
+       run: docker login -u daniel36 -p ${{ secrets.PASSWORD_DOCKER_HUB }}
+     - name: Build docker image
+       run: docker build -t daniel36/tech-challenge:${{github.run_number}} .
+     - name: Push image docker
+       run:  daniel36/tech-challenge:${{github.run_number}}
          
      - name: Build project
-       run: mvn wrapper:wrapper  --file pom.xml       
+       run: mvn wrapper:wrapper  --file pom.xml      
       
-     - uses: actions/checkout@v3
-     - name: Docker Setup Buildx  
-       uses: docker/setup-buildx-action@v3.0.0
-     - name: Docker Login    
-       uses: docker/login-action@v3.0.0
-       with:
-        # Username used to log against the Docker registry
-         username: daniel36
-        # Password or personal access token used to log against the Docker registry
-         password: ${{ secrets.PASSWORD_DOCKER_HUB }}
-     - name: Build and push Docker images     
-       uses: docker/build-push-action@v5.0.0
-       with:
-          context: .
-          # Path to the Dockerfile
-          file:  ./Dockerfile        
-          push: true       
-          tags: daniel36/tech-challenge:${{github.run_number}}
-        
 
   Deploy_EKS-Dev:   
      needs: docker-pull-image 
