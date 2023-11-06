@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'temurin' # Alternative distribution options are available.
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -56,6 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        #run: mvn -B org.jacoco:jacoco-maven-plugin:prepare-agent install org.jacoco:jacoco-maven-plugin:report verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dmaven.test.failure.ignore=true
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=danielcorreaa_tech-challenge-v2
 
   build:
@@ -72,7 +73,7 @@ jobs:
       - run: mvn clean install --file pom.xml 
 
   docker-pull-image:
-   
+    needs: build
     runs-on: ubuntu-latest
     steps: 
      - uses: actions/checkout@v4
@@ -86,12 +87,10 @@ jobs:
      - name: Login Docker Hub
        run: docker login -u daniel36 -p ${{ secrets.PASSWORD_DOCKER_HUB }}
      - name: Build docker image
-       run: docker build -t daniel36/tech-challenge:${{github.run_number}} .
+       run: docker build -t daniel36/techchallenge:${{github.run_number}} .
      - name: Push image docker
-       run:  daniel36/tech-challenge:${{github.run_number}}
-         
-     - name: Build project
-       run: mvn wrapper:wrapper  --file pom.xml      
+       run: docker push daniel36/techchallenge:${{github.run_number}}
+     
       
 
   Deploy_EKS-Dev:   

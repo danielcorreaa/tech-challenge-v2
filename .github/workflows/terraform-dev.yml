@@ -60,14 +60,14 @@ jobs:
       - run: kubectl create secret generic mysql-user --from-literal=DB_USERNAME=${{secrets.MYSQL_USER}}
     
 
-      # - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-configmap.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-configmap.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-pv.yaml 
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment-service.yaml 
-      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment.yaml 
-
-      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge-service.yaml 
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/mysql/mysql-deployment.yaml
+      
+      - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge-service.yaml          
       - run: kubectl apply -f tech-challenge-infra-terraform-kubernetes/kubernetes/java/app-tech-challenge.yaml
+      - run: kubectl set image deployment/app-tech-challenge app=daniel36/techchallenge:${{github.run_number}}
+      - run: kubectl get svc
 
-      - run: terraform -chdir=tech-challenge-infra-terraform-kubernetes/env/develop destroy -auto-approve  
-
-   
+      
