@@ -99,7 +99,7 @@ jobs:
      uses: ./.github/workflows/terraform-dev.yml    
      secrets: inherit
   
-  Deploy_EKS-Release:  
+  Deploy_EKS-Homolog:  
      needs: docker-pull-image 
      if: github.ref == 'refs/heads/release'  
      uses: ./.github/workflows/terraform-qa.yml    
