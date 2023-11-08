@@ -30,7 +30,7 @@ jobs:
       
       - run: aws sts get-caller-identity
     
-      - run: aws eks update-kubeconfig --region us-east-1 --name prod
+      - run: aws eks update-kubeconfig --region us-east-1 --name prod-tech
     
       - run: kubectl get svc
 
