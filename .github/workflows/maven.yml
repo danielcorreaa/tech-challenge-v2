@@ -8,9 +8,7 @@
 
 name: Java CI with Maven
 
-on:
-  push:
-    branches: [ "main","release", "develop"]
+on: 
   pull_request:
     branches: [ "main","release", "develop"]
 
